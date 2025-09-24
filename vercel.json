@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "routes": [
+    { "src": "/patient", "status": 302, "headers": { "Location": "https://patient.raksha360.co.in" } },
+    { "src": "/doctor",  "status": 302, "headers": { "Location": "https://doctor.raksha360.co.in" } },
+    { "src": "/hospital", "status": 302, "headers": { "Location": "https://hospital.raksha360.co.in" } },
+    { "src": "/admin", "status": 302, "headers": { "Location": "https://admin.raksha360.co.in" } },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}
