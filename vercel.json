@@ -1,5 +1,8 @@
 {
   "version": 2,
+  "builds": [
+    { "src": "package.json", "use": "@vercel/static-build", "config": { "distDir": "dist" } }
+  ],
   "routes": [
     { "src": "/patient", "status": 302, "headers": { "Location": "https://patient.raksha360.co.in" } },
     { "src": "/doctor",  "status": 302, "headers": { "Location": "https://doctor.raksha360.co.in" } },
