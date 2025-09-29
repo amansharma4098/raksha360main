@@ -24,11 +24,8 @@ import {
   GitHub,
   KeyboardArrowLeft,
   KeyboardArrowRight,
-  PlayArrow,
-  Pause,
 } from "@mui/icons-material";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
-// import logo from "../../../assets/logo.png";
 
 // Animation variants
 const fadeIn = {
@@ -77,36 +74,41 @@ const testimonials = [
   },
 ];
 
-const features = [
-  {
-    icon: <People sx={{ fontSize: 40 }} />,
-    title: "Request Doctors",
-    description:
-      "Find and onboard qualified doctors for your hospital in minutes.",
-  },
+// Portal cards with real URLs
+const portalCards = [
   {
     icon: <LocalHospital sx={{ fontSize: 40 }} />,
-    title: "Request Nurses",
-    description: "Fill urgent nurse positions with ease and reliability.",
+    title: "Hospital Portal",
+    description: "Hospital administration login and dashboard.",
+    url: "https://hospital.raksha360.co.in/",
+  },
+  {
+    icon: <People sx={{ fontSize: 40 }} />,
+    title: "Patient Portal",
+    description: "Patients can book, view records and track requests.",
+    // sensible guess — change if you use a different domain:
+    url: "https://patient.raksha360.co.in/",
   },
   {
     icon: <MedicalServices sx={{ fontSize: 40 }} />,
-    title: "Request Equipment",
-    description: "Get access to medical equipment and supplies instantly.",
+    title: "Doctor Portal",
+    description: "Doctor login: schedules, accept requests and consult.",
+    // sensible guess — change if needed:
+    url: "https://doctor.raksha360.co.in/",
   },
   {
-    icon: <LocalHospital sx={{ fontSize: 40 }} />,
-    title: "Staff Management",
-    description:
-      "Efficiently manage your medical staff schedules and assignments.",
+    icon: <Star sx={{ fontSize: 40 }} />,
+    title: "Admin Portal",
+    description: "Platform administration and user management.",
+    url: "https://admin.raksha360.co.in/",
   },
 ];
 
 const founders = [
   {
-    name: "Dr. Alex",
+    name: "Dr. Senger",
     role: "Founder & CEO",
-    bio: "Medical professional with 10+ years of experience in healthcare management. Passionate about improving healthcare accessibility through technology.",
+    bio: "Medical professional with 5 years of experience in healthcare management. Passionate about improving healthcare accessibility through technology.",
     avatar: "https://randomuser.me/api/portraits/men/41.jpg",
     social: {
       linkedin: "#",
@@ -114,9 +116,9 @@ const founders = [
     },
   },
   {
-    name: "Smith Johnson",
+    name: "Aman",
     role: "Co-Founder & CTO",
-    bio: "Seasoned software developer specializing in healthcare solutions. Expert in building scalable platforms that solve real-world problems.",
+    bio: "Seasoned software developer. Expert in building scalable platforms that solve real-world problems.",
     avatar: "https://randomuser.me/api/portraits/men/22.jpg",
     social: {
       linkedin: "#",
@@ -155,16 +157,19 @@ const Home = () => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [autoPlay, testimonials.length]);
+  }, [autoPlay]);
 
   const nextTestimonial = () => {
     setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
   };
 
   const prevTestimonial = () => {
-    setTestimonialIndex(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
-    );
+    setTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  // helper to redirect to external url (same tab)
+  const goToUrl = (url) => {
+    window.location.href = url;
   };
 
   return (
@@ -184,74 +189,20 @@ const Home = () => {
           display: { xs: "none", sm: "block" },
         }}
       >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            sx={{
-              borderRadius: 2,
-              fontWeight: 600,
-              px: 4,
-              boxShadow: "0 4px 14px 0 rgba(25, 118, 210, 0.39)",
-            }}
-            onClick={() => navigate("/auth")}
-          >
+        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.2 }}>
+          <Button variant="contained" color="primary" size="large" sx={{ borderRadius: 2, fontWeight: 600, px: 4, boxShadow: "0 4px 14px 0 rgba(25, 118, 210, 0.39)" }} onClick={() => navigate("/auth")}>
             Get Started
           </Button>
         </motion.div>
       </Box>
+
       {/* Navigation */}
       <Container>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            py: 3,
-          }}
-        >
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", py: 3 }}>
+          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <img
-                // src={logo}
-                alt="Raksha360 Logo"
-                style={{ height: 100, marginRight: 12 }}
-              />
-              {/* <Typography variant="h4" color="primary" sx={{ fontWeight: 800 }}>
-                  Raksha360
-                </Typography> */}
+              <img alt="Raksha360 Logo" style={{ height: 100, marginRight: 12 }} />
             </Box>
-          </motion.div>
-          {/* Hide original button on desktop, show only on mobile */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            style={{ display: "none" }}
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              sx={{
-                borderRadius: 2,
-                fontWeight: 600,
-                px: 4,
-                boxShadow: "0 4px 14px 0 rgba(25, 118, 210, 0.39)",
-              }}
-              onClick={() => navigate("/auth")}
-            >
-              Get Started
-            </Button>
           </motion.div>
         </Box>
       </Container>
@@ -260,78 +211,32 @@ const Home = () => {
       <Container sx={{ py: 8 }}>
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} md={6}>
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={staggerContainer}
-            >
+            <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
               <motion.div variants={fadeIn}>
-                <Chip
-                  label="Revolutionizing Healthcare Staffing"
-                  color="primary"
-                  variant="outlined"
-                  sx={{ mb: 2, fontWeight: 600 }}
-                />
+                <Chip label="Revolutionizing Healthcare Staffing" color="primary" variant="outlined" sx={{ mb: 2, fontWeight: 600 }} />
               </motion.div>
 
               <motion.div variants={fadeIn}>
-                <Typography
-                  variant="h2"
-                  color="primary"
-                  sx={{ fontWeight: 800, mb: 2 }}
-                >
+                <Typography variant="h2" color="primary" sx={{ fontWeight: 800, mb: 2 }}>
                   Your One-Stop Portal for
                 </Typography>
-                <Typography
-                  variant="h2"
-                  color="secondary"
-                  sx={{ fontWeight: 800, mb: 2, minHeight: "80px" }}
-                >
+                <Typography variant="h2" color="secondary" sx={{ fontWeight: 800, mb: 2, minHeight: "80px" }}>
                   {heroText}
                   <Cursor cursorStyle="|" />
                 </Typography>
               </motion.div>
 
               <motion.div variants={fadeIn}>
-                <Typography
-                  variant="h6"
-                  color="textSecondary"
-                  sx={{ mb: 4, lineHeight: 1.6 }}
-                >
-                  Hospitals can instantly request doctors, nurses, equipment,
-                  and more. Join hundreds of healthcare providers already using
-                  Raksha360.
+                <Typography variant="h6" color="textSecondary" sx={{ mb: 4, lineHeight: 1.6 }}>
+                  Hospitals can instantly request doctors, nurses, equipment, and more. Join hundreds of healthcare providers already using Raksha360.
                 </Typography>
               </motion.div>
 
               <motion.div variants={fadeIn}>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  size="large"
-                  sx={{
-                    borderRadius: 2,
-                    fontWeight: 600,
-                    px: 4,
-                    py: 1.5,
-                    mr: 2,
-                    boxShadow: "0 4px 14px 0 rgba(220, 0, 78, 0.39)",
-                  }}
-                  onClick={() => navigate("/auth")}
-                >
+                <Button variant="contained" color="secondary" size="large" sx={{ borderRadius: 2, fontWeight: 600, px: 4, py: 1.5, mr: 2, boxShadow: "0 4px 14px 0 rgba(220, 0, 78, 0.39)" }} onClick={() => navigate("/auth")}>
                   Get Started
                 </Button>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  size="large"
-                  sx={{
-                    borderRadius: 2,
-                    fontWeight: 600,
-                    px: 4,
-                    py: 1.5,
-                  }}
-                >
+                <Button variant="outlined" color="primary" size="large" sx={{ borderRadius: 2, fontWeight: 600, px: 4, py: 1.5 }}>
                   Learn More
                 </Button>
               </motion.div>
@@ -339,76 +244,69 @@ const Home = () => {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-            ></motion.div>
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }} />
           </Grid>
         </Grid>
       </Container>
 
-      {/* Features Section */}
+      {/* Portal Cards Section */}
       <Box sx={{ py: 8, bgcolor: "white" }}>
         <Container>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <Typography
-              variant="h3"
-              color="primary"
-              align="center"
-              sx={{ fontWeight: 700, mb: 2 }}
-            >
-              <span style={{ color: "#1976d2" }}>{featureText}</span>
-              <Cursor cursorStyle="|" />
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <Typography variant="h3" color="primary" align="center" sx={{ fontWeight: 700, mb: 2 }}>
+              Quick Access Portals
             </Typography>
-            <Typography
-              variant="h6"
-              color="textSecondary"
-              align="center"
-              sx={{ mb: 6, maxWidth: 700, mx: "auto" }}
-            >
-              Our platform offers comprehensive solutions for all your
-              healthcare staffing needs
+            <Typography variant="h6" color="textSecondary" align="center" sx={{ mb: 6, maxWidth: 700, mx: "auto" }}>
+              Choose the portal that fits your role and get started immediately.
             </Typography>
           </motion.div>
 
           <Grid container spacing={4} justifyContent="center">
-            {features.map((feature, index) => (
+            {portalCards.map((card, index) => (
               <Grid item xs={12} md={6} lg={3} key={index}>
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
+                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.1 }}>
                   <Card
+                    onClick={() => goToUrl(card.url)}
+                    role="button"
+                    tabIndex={0}
                     sx={{
                       p: 4,
                       boxShadow: "0 8px 24px rgba(149, 157, 165, 0.2)",
                       borderRadius: 3,
                       textAlign: "center",
                       height: "100%",
-                      transition: "transform 0.3s, box-shadow 0.3s",
+                      transition: "transform 0.25s, box-shadow 0.25s",
+                      cursor: "pointer",
                       "&:hover": {
                         transform: "translateY(-8px)",
                         boxShadow: "0 12px 28px rgba(149, 157, 165, 0.3)",
                       },
+                      "&:focus": {
+                        outline: "2px solid",
+                        outlineColor: "primary.light",
+                        outlineOffset: "4px",
+                      },
                     }}
                   >
-                    <Box sx={{ color: "primary.main", mb: 2 }}>
-                      {feature.icon}
-                    </Box>
+                    <Box sx={{ color: "primary.main", mb: 2 }}>{card.icon}</Box>
                     <Typography variant="h5" sx={{ fontWeight: 600, mb: 2 }}>
-                      {feature.title}
+                      {card.title}
                     </Typography>
                     <Typography variant="body1" color="textSecondary">
-                      {feature.description}
+                      {card.description}
                     </Typography>
+                    <Box sx={{ mt: 3 }}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          goToUrl(card.url);
+                        }}
+                      >
+                        Open
+                      </Button>
+                    </Box>
                   </Card>
                 </motion.div>
               </Grid>
@@ -420,94 +318,41 @@ const Home = () => {
       {/* Founders Section */}
       <Box sx={{ py: 8, bgcolor: "grey.50" }}>
         <Container>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <Typography
-              variant="h3"
-              color="primary"
-              align="center"
-              sx={{ fontWeight: 700, mb: 2 }}
-            >
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <Typography variant="h3" color="primary" align="center" sx={{ fontWeight: 700, mb: 2 }}>
               Meet Our Founders
             </Typography>
-            <Typography
-              variant="h6"
-              color="textSecondary"
-              align="center"
-              sx={{ mb: 6, maxWidth: 700, mx: "auto" }}
-            >
-              The visionary leaders behind Raksha360's mission to transform
-              healthcare staffing
+            <Typography variant="h6" color="textSecondary" align="center" sx={{ mb: 6, maxWidth: 700, mx: "auto" }}>
+              The visionary leaders behind Raksha360's mission to transform healthcare staffing
             </Typography>
           </motion.div>
 
           <Grid container spacing={4} justifyContent="center">
             {founders.map((founder, index) => (
               <Grid item xs={12} md={6} key={index}>
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <Card
-                    sx={{
-                      p: 4,
-                      boxShadow: "0 8px 24px rgba(149, 157, 165, 0.2)",
-                      borderRadius: 3,
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      textAlign: "center",
-                    }}
-                  >
-                    <Avatar
-                      src={founder.avatar}
-                      alt={founder.name}
-                      sx={{ width: 120, height: 120, mb: 3 }}
-                    />
+                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.1 }}>
+                  <Card sx={{ p: 4, boxShadow: "0 8px 24px rgba(149, 157, 165, 0.2)", borderRadius: 3, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+                    <Avatar src={founder.avatar} alt={founder.name} sx={{ width: 120, height: 120, mb: 3 }} />
                     <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
                       {founder.name}
                     </Typography>
-                    <Chip
-                      label={founder.role}
-                      color="primary"
-                      variant="outlined"
-                      sx={{ mb: 2, fontWeight: 600 }}
-                    />
-                    <Typography
-                      variant="body1"
-                      color="textSecondary"
-                      sx={{ mb: 3 }}
-                    >
+                    <Chip label={founder.role} color="primary" variant="outlined" sx={{ mb: 2, fontWeight: 600 }} />
+                    <Typography variant="body1" color="textSecondary" sx={{ mb: 3 }}>
                       {founder.bio}
                     </Typography>
                     <Box>
                       {founder.social.linkedin && (
-                        <IconButton
-                          color="primary"
-                          href={founder.social.linkedin}
-                        >
+                        <IconButton color="primary" href={founder.social.linkedin}>
                           <LinkedIn />
                         </IconButton>
                       )}
                       {founder.social.twitter && (
-                        <IconButton
-                          color="primary"
-                          href={founder.social.twitter}
-                        >
+                        <IconButton color="primary" href={founder.social.twitter}>
                           <Twitter />
                         </IconButton>
                       )}
                       {founder.social.github && (
-                        <IconButton
-                          color="primary"
-                          href={founder.social.github}
-                        >
+                        <IconButton color="primary" href={founder.social.github}>
                           <GitHub />
                         </IconButton>
                       )}
@@ -523,55 +368,22 @@ const Home = () => {
       {/* Testimonials Section */}
       <Box sx={{ py: 8, bgcolor: "white" }}>
         <Container>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <Typography
-              variant="h3"
-              color="primary"
-              align="center"
-              sx={{ fontWeight: 700, mb: 2 }}
-            >
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <Typography variant="h3" color="primary" align="center" sx={{ fontWeight: 700, mb: 2 }}>
               What Our Clients Say
             </Typography>
-            <Typography
-              variant="h6"
-              color="textSecondary"
-              align="center"
-              sx={{ mb: 6, maxWidth: 700, mx: "auto" }}
-            >
-              Hear from healthcare providers who have transformed their staffing
-              with Raksha360
+            <Typography variant="h6" color="textSecondary" align="center" sx={{ mb: 6, maxWidth: 700, mx: "auto" }}>
+              Hear from healthcare providers who have transformed their staffing with Raksha360
             </Typography>
           </motion.div>
 
           <Box sx={{ position: "relative", maxWidth: 800, mx: "auto", mb: 4 }}>
-            <Card
-              sx={{
-                p: 4,
-                boxShadow: "0 8px 24px rgba(149, 157, 165, 0.2)",
-                borderRadius: 3,
-                textAlign: "center",
-                minHeight: 300,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-              }}
-            >
-              <Avatar
-                src={testimonials[testimonialIndex].avatar}
-                alt={testimonials[testimonialIndex].name}
-                sx={{ width: 80, height: 80, mx: "auto", mb: 2 }}
-              />
+            <Card sx={{ p: 4, boxShadow: "0 8px 24px rgba(149, 157, 165, 0.2)", borderRadius: 3, textAlign: "center", minHeight: 300, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+              <Avatar src={testimonials[testimonialIndex].avatar} alt={testimonials[testimonialIndex].name} sx={{ width: 80, height: 80, mx: "auto", mb: 2 }} />
               <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
-                {[...Array(testimonials[testimonialIndex].rating)].map(
-                  (_, i) => (
-                    <Star key={i} sx={{ color: "#ffb400", fontSize: 20 }} />
-                  )
-                )}
+                {[...Array(testimonials[testimonialIndex].rating)].map((_, i) => (
+                  <Star key={i} sx={{ color: "#ffb400", fontSize: 20 }} />
+                ))}
               </Box>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
                 {testimonials[testimonialIndex].name}
@@ -584,14 +396,7 @@ const Home = () => {
               </Typography>
             </Card>
 
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                mt: 3,
-              }}
-            >
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", mt: 3 }}>
               <IconButton onClick={prevTestimonial} color="primary">
                 <KeyboardArrowLeft />
               </IconButton>
@@ -605,10 +410,7 @@ const Home = () => {
                       width: 12,
                       height: 12,
                       borderRadius: "50%",
-                      bgcolor:
-                        index === testimonialIndex
-                          ? "primary.main"
-                          : "grey.400",
+                      bgcolor: index === testimonialIndex ? "primary.main" : "grey.400",
                       mx: 0.5,
                       cursor: "pointer",
                       transition: "background-color 0.3s",
@@ -620,14 +422,6 @@ const Home = () => {
               <IconButton onClick={nextTestimonial} color="primary">
                 <KeyboardArrowRight />
               </IconButton>
-
-              {/* <IconButton 
-                onClick={() => setAutoPlay(!autoPlay)} 
-                color="primary"
-                sx={{ ml: 2 }}
-              >
-                {autoPlay ? <Pause /> : <PlayArrow />}
-              </IconButton> */}
             </Box>
           </Box>
         </Container>
@@ -636,40 +430,15 @@ const Home = () => {
       {/* CTA Section */}
       <Box sx={{ py: 8, bgcolor: "primary.main", color: "white" }}>
         <Container>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <Typography
-              variant="h3"
-              align="center"
-              sx={{ fontWeight: 700, mb: 2 }}
-            >
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+            <Typography variant="h3" align="center" sx={{ fontWeight: 700, mb: 2 }}>
               Ready to Transform Your Healthcare Staffing?
             </Typography>
-            <Typography
-              variant="h6"
-              align="center"
-              sx={{ mb: 4, opacity: 0.9 }}
-            >
+            <Typography variant="h6" align="center" sx={{ mb: 4, opacity: 0.9 }}>
               Join hundreds of hospitals already using Raksha360
             </Typography>
             <Box sx={{ textAlign: "center" }}>
-              <Button
-                variant="contained"
-                color="secondary"
-                size="large"
-                sx={{
-                  borderRadius: 2,
-                  fontWeight: 600,
-                  px: 5,
-                  py: 1.5,
-                  boxShadow: "0 4px 14px 0 rgba(220, 0, 78, 0.4)",
-                }}
-                onClick={() => navigate("/auth")}
-              >
+              <Button variant="contained" color="secondary" size="large" sx={{ borderRadius: 2, fontWeight: 600, px: 5, py: 1.5, boxShadow: "0 4px 14px 0 rgba(220, 0, 78, 0.4)" }} onClick={() => navigate("/auth")}>
                 Get Started Now
               </Button>
             </Box>
@@ -678,14 +447,7 @@ const Home = () => {
       </Box>
 
       {/* Footer */}
-      <Box
-        sx={{
-          py: 3,
-          bgcolor: "primary.dark",
-          color: "white",
-          textAlign: "center",
-        }}
-      >
+      <Box sx={{ py: 3, bgcolor: "primary.dark", color: "white", textAlign: "center" }}>
         <Container>
           <Typography variant="body2" sx={{ fontWeight: 500 }}>
             &copy; {new Date().getFullYear()} Raksha360. All rights reserved.
