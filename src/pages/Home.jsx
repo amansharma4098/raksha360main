@@ -27,6 +27,9 @@ import {
 } from "@mui/icons-material";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 
+import logo from "../assets/logo.png";
+
+
 // Animation variants
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -201,7 +204,7 @@ const Home = () => {
         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", py: 3 }}>
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <img alt="Raksha360 Logo" style={{ height: 100, marginRight: 12 }} />
+              <img src={logo} alt="Raksha360 Logo" style={{ height: 100, marginRight: 12 }} />
             </Box>
           </motion.div>
         </Box>
